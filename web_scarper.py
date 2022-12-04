@@ -12,10 +12,7 @@ filltered_list = str(filltered_list[1]).split("document.addEventListener('DOMCon
 filltered_list = str(filltered_list[0]).split("\"instrumentId\":")
 
 x = 1
-items = str(filltered_list[x]).replace("}","").replace("\"","").replace(']','').split(",")
-
 for item in filltered_list:
-
     items = str(filltered_list[x]).replace("}","").replace("\"","").replace(']','').split(",")
     name, price, change_rate = items[3], items[7], items[8]
     print(name,"\n", price,"\n", change_rate, "\n ------------------")

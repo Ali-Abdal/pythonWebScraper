@@ -11,7 +11,9 @@ The goal is to pull this values and display it on the log
 
 Code:
 
-<img width="1005" alt="Screenshot 2022-12-04 at 8 01 06 PM" src="https://user-images.githubusercontent.com/109912475/205512783-7bb8e4f3-35fe-4750-b138-3e0c97d31f29.png">
+
+<img width="976" alt="Screenshot 2022-12-04 at 10 54 19 PM" src="https://user-images.githubusercontent.com/109912475/205520552-3430c898-0221-48dd-828d-305c87e3092b.png">
+
 
 
 Result:

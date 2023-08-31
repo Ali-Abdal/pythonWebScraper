@@ -1,21 +1,23 @@
-from bs4 import BeautifulSoup
 import requests
+from bs4 import BeautifulSoup
+import json
 
-url = "https://www.plus500.com/en/"
-ua = {"User-Agent":"Mozilla/5.0"}
+url = 'https://www.plus500.com/en/'
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.3"
+}
+response = requests.get(url, headers=headers)
+html = response.content
 
-page = requests.get(url, headers=ua)
-doc = BeautifulSoup(page.text, "html.parser")
+soup = BeautifulSoup(html,'lxml')
 
-filltered_list = str(doc).split("var feedApp;")
-filltered_list = str(filltered_list[1]).split("document.addEventListener('DOMContentLoaded', function (){")
-filltered_list = str(filltered_list[0]).split("\"instrumentId\":")
+wanted_tag = soup.find_all('script')[7]
 
-x = 1
-for item in filltered_list:
-    items = str(filltered_list[x]).replace("}","").replace("\"","").replace(']','').split(",")
-    name, price, change_rate = items[3], items[7], items[8]
-    print(name,"\n", price,"\n", change_rate, "\n ------------------")
-    x += 1
+data = str(wanted_tag).split("document.addEventListener('DOMContentLoaded', function (){")[0].replace("<script>\r\n    var feedApp;\r\n    var initialData = ",'')
 
-    if len(filltered_list) == x: break
+data_dict = json.loads(data)
+
+for v in data_dict.values():
+    instrument = v['instruments']
+    for i in instrument:
+        print(f"name: {i['name']}\nprice: {i['sellPrice']}\nchange rate: {i['changeRate']}\n---------------")
